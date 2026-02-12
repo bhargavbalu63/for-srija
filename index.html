@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bhargav & Srija | The Story</title>
+    <title>Bhargav & Srija | The Eternal Story</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300&display=swap" rel="stylesheet">
@@ -13,7 +13,6 @@
         :root {
             --bg: #000000;
             --text: #ffffff;
-            --accent: #ff0055;
             --gold: #FFD700;
         }
         
@@ -41,21 +40,20 @@
             filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.5));
         }
 
-        /* === RICH COLORFUL ANIMATED BACKGROUND (RESTORED) === */
+        /* === 1. RICH ANIMATED BACKGROUND === */
         .aurora-bg {
             position: absolute;
             inset: -50%;
             width: 200%;
             height: 200%;
             background: 
-                radial-gradient(circle at 50% 50%, #2a0015 0%, transparent 50%),
-                radial-gradient(circle at 0% 0%, #3b0042 0%, transparent 40%),
-                radial-gradient(circle at 100% 0%, #4a0028 0%, transparent 40%),
-                radial-gradient(circle at 100% 100%, #1a0b00 0%, transparent 40%),
-                radial-gradient(circle at 0% 100%, #240000 0%, transparent 40%);
-            filter: blur(60px);
-            opacity: 0.8;
-            animation: aurora-spin 20s linear infinite;
+                radial-gradient(circle at 50% 50%, #2a0015 0%, transparent 60%),
+                radial-gradient(circle at 100% 0%, #3b0042 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, #1a0b00 0%, transparent 50%),
+                radial-gradient(circle at 0% 0%, #240000 0%, transparent 50%);
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: aurora-spin 30s linear infinite;
             z-index: 0;
         }
 
@@ -64,11 +62,10 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Sparkles/Fireflies (RESTORED) */
+        /* Fireflies */
         .firefly {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 3px; height: 3px;
             background: var(--gold);
             border-radius: 50%;
             box-shadow: 0 0 10px var(--gold);
@@ -81,28 +78,34 @@
             100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
 
-        /* === 3D BOOK STYLING === */
-        .book-section {
+        /* === 2. CINEMATIC 3D CARD STACK === */
+        .card-section {
             height: 100vh;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            perspective: 1500px; 
+            perspective: 1200px; /* High perspective for 3D depth */
             overflow: hidden;
         }
 
-        .book-card {
+        .info-card {
             position: absolute;
             width: 85vw;
-            height: 65vh;
+            height: 60vh;
             max-width: 400px;
             max-height: 600px;
-            border-radius: 20px;
-            /* CLEAN SOLID BACKGROUND (No Gradients/Borders) */
-            background-color: #000000;
-           
+            border-radius: 24px;
+            
+            /* === PREMIUM VELVET CARD BACKGROUND === */
+            background: linear-gradient(160deg, #1f0505 0%, #000000 100%);
+            background-image: 
+                linear-gradient(160deg, #1f0505 0%, #000000 100%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9), inset 0 0 40px rgba(0,0,0,0.8);
             
             display: flex;
             flex-direction: column;
@@ -110,15 +113,16 @@
             align-items: center;
             text-align: center;
             padding: 2rem;
-            transform-origin: top center;
-            will-change: transform, opacity;
-            backface-visibility: hidden;
+            
+            will-change: transform, opacity, filter;
+            transform-style: preserve-3d;
         }
 
-        /* Floating Icon (RESTORED) */
+        /* Floating Icon */
         .float-icon { 
             font-size: 80px;
             margin-bottom: 20px;
+            filter: drop-shadow(0 0 25px rgba(255,255,255,0.2));
             animation: float 4s ease-in-out infinite; 
         }
         @keyframes float { 
@@ -128,9 +132,9 @@
 
         /* Button */
         .heart-btn {
-            background: #ff0055;
-            transition: all 0.2s;
-            box-shadow: 0 0 20px rgba(255, 0, 85, 0.4);
+            background: linear-gradient(to right, #e11d48, #be123c);
+            box-shadow: 0 0 30px rgba(225, 29, 72, 0.5);
+            transition: all 0.3s;
         }
         .heart-btn:active { transform: scale(0.95); }
         
@@ -145,17 +149,15 @@
 
     <div class="loader" id="loader">
         <div class="text-6xl mb-4 animate-bounce">❤️</div>
-        <div class="font-cinzel text-white tracking-widest uppercase text-sm">Loading...</div>
+        <div class="font-cinzel text-white tracking-widest uppercase text-sm">Loading Memories...</div>
     </div>
 
     <section class="h-screen w-full relative overflow-hidden flex flex-col items-center justify-center bg-black" id="hero-section">
-        
         <div class="aurora-bg" id="hero-bg"></div>
-        
         <div id="fireflies-container"></div>
 
         <div class="z-10 text-center px-4 mix-blend-screen" id="hero-content">
-            <h2 class="text-xs md:text-sm uppercase tracking-[0.4em] mb-8 text-white/70">The Story of</h2>
+            <h2 class="text-xs md:text-sm uppercase tracking-[0.4em] mb-8 text-white/70">The Eternal Story of</h2>
             <h1 class="text-5xl md:text-9xl font-black tracking-tighter text-white leading-tight drop-shadow-2xl">
                 BHARGAV<br>
                 <span class="gold-text font-vibes text-7xl md:text-9xl block my-4">&</span>
@@ -164,7 +166,7 @@
         </div>
         
         <div class="absolute bottom-12 flex flex-col items-center gap-2 opacity-80 animate-bounce">
-            <p class="text-[10px] tracking-[0.3em] uppercase text-white">Scroll Down</p>
+            <p class="text-[10px] tracking-[0.3em] uppercase text-white">Start the Journey</p>
         </div>
     </section>
 
@@ -179,58 +181,58 @@
                 <h2 class="text-4xl md:text-7xl font-bold text-gray-400">7 Promises.</h2>
             </div>
             <div class="struggle-text absolute inset-0 flex items-center justify-center opacity-0 translate-y-10">
-                <h2 class="text-5xl md:text-8xl font-bold text-white">
+                <h2 class="text-5xl md:text-8xl font-bold text-white drop-shadow-2xl">
                     One Love Story.
                 </h2>
             </div>
         </div>
     </section>
 
-    <section class="book-section bg-black" id="book-pin">
+    <section class="card-section bg-black" id="card-pin">
         
-        <div class="book-card" style="z-index: 10;">
+        <div class="info-card" style="z-index: 10;">
             <div class="float-icon">💋</div>
             <div class="text-gray-500 font-vibes text-2xl mb-2">Day 7</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Kiss Day</h3>
             <p class="text-base text-gray-300 leading-relaxed px-2">The seal of our forever. A promise that I am yours, until my last breath.</p>
         </div>
 
-        <div class="book-card" style="z-index: 20;">
+        <div class="info-card" style="z-index: 20;">
             <div class="float-icon">🤗</div>
             <div class="text-gray-500 font-vibes text-2xl mb-2">Day 6</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Hug Day</h3>
             <p class="text-base text-gray-300 leading-relaxed px-2">Your arms are my home. Nowhere else feels as safe as this.</p>
         </div>
 
-        <div class="book-card" style="z-index: 30;">
+        <div class="info-card" style="z-index: 30;">
             <div class="float-icon">🤝</div>
             <div class="text-gray-500 font-vibes text-2xl mb-2">Day 5</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Promise Day</h3>
             <p class="text-base text-gray-300 leading-relaxed px-2">I promise to stand by you, to fight for us, and to love you endlessly.</p>
         </div>
 
-        <div class="book-card" style="z-index: 40;">
+        <div class="info-card" style="z-index: 40;">
             <div class="float-icon">🧸</div>
             <div class="text-gray-500 font-vibes text-2xl mb-2">Day 4</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Teddy Day</h3>
             <p class="text-base text-gray-300 leading-relaxed px-2">I promise to be your comfort, your soft place to land when the world is hard.</p>
         </div>
 
-        <div class="book-card" style="z-index: 50;">
+        <div class="info-card" style="z-index: 50;">
             <div class="float-icon">🍫</div>
             <div class="text-gray-500 font-vibes text-2xl mb-2">Day 3</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Chocolate Day</h3>
             <p class="text-base text-gray-300 leading-relaxed px-2">Life was bitter with distance, but you added the sweetness I was missing.</p>
         </div>
 
-        <div class="book-card" style="z-index: 60;">
+        <div class="info-card" style="z-index: 60;">
             <div class="float-icon">💍</div>
             <div class="text-gray-500 font-vibes text-2xl mb-2">Day 2</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Propose Day</h3>
             <p class="text-base text-gray-300 leading-relaxed px-2">My heart whispered "Yes" to you long before my lips ever asked the question.</p>
         </div>
 
-        <div class="book-card" style="z-index: 70;">
+        <div class="info-card" style="z-index: 70;">
             <div class="float-icon">🌹</div>
             <div class="text-gray-500 font-vibes text-2xl mb-2">Day 1</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Rose Day</h3>
@@ -299,29 +301,19 @@
 
         function initAnimations() {
             
-            // HERO: Rich Parallax & Zoom Effect (RESTORED)
+            // HERO
             gsap.to("#hero-bg", {
                 scale: 1.5,
                 rotation: 10,
-                scrollTrigger: {
-                    trigger: "#hero-section",
-                    start: "top top",
-                    end: "bottom top",
-                    scrub: true
-                }
+                scrollTrigger: { trigger: "#hero-section", start: "top top", end: "bottom top", scrub: true }
             });
             gsap.to("#hero-content", {
                 y: -150,
                 opacity: 0,
-                scrollTrigger: {
-                    trigger: "#hero-section",
-                    start: "top top",
-                    end: "60% top",
-                    scrub: true
-                }
+                scrollTrigger: { trigger: "#hero-section", start: "top top", end: "60% top", scrub: true }
             });
 
-            // Sticky Text Swap
+            // STICKY TEXT
             ScrollTrigger.create({ trigger: "#struggle-pin", start: "top top", end: "+=1500", pin: true });
             let tlStruggle = gsap.timeline({ scrollTrigger: { trigger: "#struggle-pin", start: "top top", end: "+=1500", scrub: true } });
             tlStruggle.to(".struggle-text:nth-child(1)", { opacity: 1, y: 0, duration: 1 })
@@ -330,33 +322,60 @@
                       .to(".struggle-text:nth-child(2)", { opacity: 0, y: -50, duration: 1 }, "+=0.5")
                       .to(".struggle-text:nth-child(3)", { opacity: 1, y: 0, duration: 1 });
 
-            // 3D BOOK FLIP
-            let cards = gsap.utils.toArray(".book-card");
-            let cardsReversed = cards.slice().reverse(); 
-            let cardsToAnimate = cardsReversed.slice(0, -1); 
-
-            let tlBook = gsap.timeline({
+            // === FASTER CINEMATIC TRANSITION ===
+            
+            let cards = gsap.utils.toArray(".info-card");
+            let cardsReversed = cards.slice().reverse(); // [Rose, Propose... Kiss]
+            
+            let tlCards = gsap.timeline({
                 scrollTrigger: {
-                    trigger: "#book-pin",
+                    trigger: "#card-pin",
                     start: "top top",
-                    end: "+=" + (cards.length * 900), 
+                    // REDUCED DISTANCE: 700px per card = Much faster scroll
+                    end: "+=" + (cards.length * 700), 
                     pin: true,
                     scrub: 1
                 }
             });
 
-            cardsToAnimate.forEach((card) => {
-                tlBook.to(card, {
-                    rotationX: -110,    
-                    opacity: 0,         
-                    z: -500,            
-                    duration: 1.5,
-                    ease: "power2.inOut",
-                    transformOrigin: "top center"
-                });
-            });
+            for (let i = 0; i < cardsReversed.length - 1; i++) {
+                let currentCard = cardsReversed[i];
+                let nextCard = cardsReversed[i + 1];
 
-            // Final Reveal
+                // Initial State for Next Card
+                gsap.set(nextCard, { 
+                    scale: 0.9, 
+                    y: 30, 
+                    filter: "blur(4px) brightness(0.6)",
+                    opacity: 1 
+                });
+
+                let step = gsap.timeline();
+
+                // 1. Current Card Flies UP
+                step.to(currentCard, {
+                    y: -1000,           
+                    rotation: Math.random() * 5 - 2.5, 
+                    scale: 1.1,         
+                    filter: "blur(10px)", 
+                    opacity: 0,
+                    duration: 1.5, // Faster duration
+                    ease: "power2.inOut"
+                }, "transition" + i);
+
+                // 2. Next Card Snaps In
+                step.to(nextCard, {
+                    scale: 1,
+                    y: 0,
+                    filter: "blur(0px) brightness(1)",
+                    duration: 1.5,
+                    ease: "power2.out"
+                }, "transition" + i + "+=0.1"); // Tight overlap
+
+                tlCards.add(step);
+            }
+
+            // FINAL REVEAL
             gsap.to(".reveal-final", {
                 y: 0, opacity: 1, scale: 1, duration: 1, stagger: 0.3,
                 scrollTrigger: { trigger: "#proposal-container", start: "top 70%" }
