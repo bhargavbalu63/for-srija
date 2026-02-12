@@ -32,14 +32,13 @@
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-vibes { font-family: 'Great Vibes', cursive; }
         
-        /* FIX 1: BRIGHT VISIBLE TITLE TEXT */
         .gold-text {
             color: #ffffff;
             background: linear-gradient(to right, #ffffff, #FFD700, #ffffff);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); /* Glow to make it pop */
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
 
         .aurora-bg {
@@ -61,7 +60,7 @@
             overflow: hidden;
         }
 
-        /* FIX 2: SOLID SILVER CARD (NO TRANSPARENCY) */
+        /* === MOBILE-PROOF SILVER CARD === */
         .info-card {
             position: absolute;
             width: 85vw;
@@ -70,16 +69,30 @@
             max-height: 600px;
             border-radius: 20px;
             
-            /* 1. Solid Base Color (Blocks everything behind it) */
+            /* 1. Solid Base */
             background-color: #dcdcdc; 
             
-            /* 2. Solid Metal Gradient (No transparent values) */
-            background: linear-gradient(145deg, #ffffff 0%, #dcdcdc 40%, #999999 100%);
+            /* 2. HIGH CONTRAST CHROME GRADIENT */
+            /* This mimics a light reflection hitting the metal */
+            background: linear-gradient(
+                135deg, 
+                #ffffff 0%,    /* Bright highlight corner */
+                #d0d0d0 25%,   /* Soft Silver */
+                #f0f0f0 50%,   /* The "Shine" Line */
+                #909090 75%,   /* Darker Steel */
+                #505050 100%   /* Deep Shadow corner */
+            );
             
-            /* 3. Deep Shadow to separate cards */
+            /* 3. 3D Beveled Edges (Thick Look) */
+            border-top: 2px solid rgba(255, 255, 255, 0.9); /* Pure White Top Edge */
+            border-left: 1px solid rgba(255, 255, 255, 0.5);
+            border-right: 1px solid rgba(0, 0, 0, 0.5);
+            border-bottom: 3px solid rgba(0, 0, 0, 0.8); /* Thick Black Bottom Edge */
+            
+            /* 4. Deep Shadow to separate from background */
             box-shadow: 
-                0 30px 60px rgba(0,0,0,1), /* Black shadow underneath */
-                inset 0 0 0 1px rgba(255,255,255,0.8); /* White edge highlight */
+                0 30px 60px rgba(0,0,0,1), 
+                inset 0 0 20px rgba(255,255,255,0.4); 
             
             display: flex;
             flex-direction: column;
@@ -89,39 +102,41 @@
             padding: 2rem;
             
             transform: translate3d(0,0,0);
-            backface-visibility: hidden; /* Hides back of card */
+            backface-visibility: hidden; 
             will-change: transform, opacity;
         }
 
-        /* TEXT ON SILVER CARD */
         .info-card .day-label {
-            color: #444; /* Dark Grey */
+            color: #444; 
             font-family: 'Great Vibes', cursive;
             font-size: 1.8rem;
             margin-bottom: 0.5rem;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.6);
         }
 
         .info-card h3 {
-            color: #000000; /* Solid Black Title */
+            color: #0d0d0d; /* Almost Black */
             font-family: 'Cinzel', serif;
             font-weight: 900;
             margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            /* Engraved Effect */
-            text-shadow: 0px 1px 0px rgba(255,255,255,1);
+            /* Sharp Engraving Effect */
+            text-shadow: 0px 1px 0px rgba(255,255,255,1), 0px -1px 0px rgba(0,0,0,0.1);
         }
         
         .info-card p {
-            color: #333333; /* Dark Grey Text */
+            color: #333333;
             font-weight: 600;
             line-height: 1.6;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.4);
         }
 
         .float-icon { 
             font-size: 80px;
             margin-bottom: 20px;
-            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
+            /* Stronger shadow for mobile visibility */
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));
             animation: float 4s ease-in-out infinite;
             will-change: transform; 
         }
@@ -301,7 +316,7 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <script>
-        // === 1. FAIL-SAFE LOADER ===
+        // === 1. FORCE LOAD ===
         function removeLoader() {
             const loader = document.getElementById('loader');
             if(loader && loader.style.display !== 'none') {
