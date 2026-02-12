@@ -22,15 +22,19 @@
             font-family: 'Satoshi', sans-serif;
             overflow-x: hidden;
             margin: 0;
-            /* Prevents rubber-banding on iOS */
             overscroll-behavior: none;
         }
+
+        /* Smooth Scroll */
+        html.lenis { width: auto; height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-stopped { overflow: hidden; }
 
         /* Typography */
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-vibes { font-family: 'Great Vibes', cursive; }
         
-        /* Optimized Gold Text (No heavy drop-shadows) */
+        /* Gold Text */
         .gold-text {
             background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7);
             background-clip: text;
@@ -38,8 +42,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* === OPTIMIZED BACKGROUND === */
-        /* Replaced complex gradients with a simple static radial */
+        /* === 1. BACKGROUND === */
         .aurora-bg {
             position: absolute;
             inset: 0;
@@ -48,7 +51,7 @@
             z-index: 0;
         }
 
-        /* === OPTIMIZED CARDS (GPU Accelerated) === */
+        /* === 2. CARDS (UPDATED: PREMIUM RED VELVET) === */
         .card-section {
             height: 100vh;
             width: 100%;
@@ -68,31 +71,38 @@
             max-height: 600px;
             border-radius: 20px;
             
-            /* Solid color is faster than gradient */
-            background-color: #0f0f0f;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            /* === NEW PREMIUM RED BACKGROUND === */
+            background: linear-gradient(145deg, #1a0505 0%, #2b0a0a 100%);
             
-            /* Static shadow (cheaper than animated shadow) */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            /* Subtle Noise Texture for "Paper" feel */
+            background-image: 
+                linear-gradient(145deg, #1a0505 0%, #2b0a0a 100%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
             
+            /* Inner Glow & Deep Shadow */
+            box-shadow: 
+                inset 0 0 40px rgba(0,0,0,0.9),
+                0 25px 50px rgba(0,0,0,0.9);
+            
+            /* Subtle Border */
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 2rem;
-            
-            /* FORCE GPU ACCELERATION */
             transform: translate3d(0,0,0);
             backface-visibility: hidden;
             will-change: transform, opacity;
         }
 
-        /* Optimized Floating Icon */
         .float-icon { 
             font-size: 80px;
             margin-bottom: 20px;
-            /* Removed drop-shadow for performance */
+            /* Added glow behind emoji to pop against red */
+            filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
             animation: float 4s ease-in-out infinite; 
         }
         @keyframes float { 
@@ -100,10 +110,53 @@
             50% { transform: translateY(-10px); } 
         }
 
+        /* === 3. GRAND FINALE STYLES === */
+        
+        /* Heartbeat Tunnel Background */
+        .heartbeat-circle {
+            position: absolute;
+            border: 2px solid rgba(255, 0, 85, 0.1);
+            border-radius: 50%;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            animation: ripple 4s infinite linear;
+        }
+        @keyframes ripple {
+            0% { width: 0px; height: 0px; opacity: 1; }
+            100% { width: 1000px; height: 1000px; opacity: 0; }
+        }
+
+        /* The Neon "She Said Yes" Text */
+        .neon-success {
+            font-family: 'Great Vibes', cursive;
+            color: #fff;
+            text-shadow: 
+                0 0 10px #ff0055,
+                0 0 20px #ff0055,
+                0 0 40px #ff0055,
+                0 0 80px #ff0055;
+            animation: pulse-neon 1.5s infinite alternate;
+        }
+        @keyframes pulse-neon {
+            from { text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055; }
+            to { text-shadow: 0 0 20px #ff0055, 0 0 40px #ff0055, 0 0 60px #ff0055; }
+        }
+
+        /* Divine Light Background */
+        .divine-light {
+            position: absolute;
+            width: 200vw;
+            height: 200vw;
+            background: radial-gradient(circle, rgba(255,0,85,0.2) 0%, transparent 60%);
+            animation: spin-light 20s linear infinite;
+            z-index: -1;
+        }
+        @keyframes spin-light { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
         /* Button */
         .heart-btn {
             background: linear-gradient(135deg, #e11d48, #be123c);
-            box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
+            box-shadow: 0 0 20px rgba(225, 29, 72, 0.6);
             transition: transform 0.2s;
         }
         .heart-btn:active { transform: scale(0.95); }
@@ -124,7 +177,6 @@
 
     <section class="h-screen w-full relative overflow-hidden flex flex-col items-center justify-center bg-black" id="hero-section">
         <div class="aurora-bg"></div>
-
         <div class="z-10 text-center px-4" id="hero-content">
             <h2 class="text-xs md:text-sm uppercase tracking-[0.5em] mb-6 text-white/60">The Eternal Union of</h2>
             <h1 class="text-5xl md:text-9xl font-black tracking-tighter text-white leading-tight">
@@ -133,7 +185,6 @@
                 SRIJA
             </h1>
         </div>
-        
         <div class="absolute bottom-12 flex flex-col items-center gap-2 opacity-70 animate-bounce">
             <p class="text-[10px] tracking-[0.3em] uppercase text-white">Begin Journey</p>
         </div>
@@ -148,68 +199,63 @@
                 <h2 class="text-4xl md:text-7xl font-bold text-gray-400 tracking-tight">7 Promises.</h2>
             </div>
             <div class="struggle-text absolute inset-0 flex items-center justify-center opacity-0 translate-y-10">
-                <h2 class="text-5xl md:text-8xl font-bold text-white tracking-tighter">
-                    One Love Story.
-                </h2>
+                <h2 class="text-5xl md:text-8xl font-bold text-white tracking-tighter">One Love Story.</h2>
             </div>
         </div>
     </section>
 
     <section class="card-section bg-black" id="card-pin">
-        
         <div class="info-card" style="z-index: 10;">
             <div class="float-icon">💋</div>
-            <div class="text-white/50 font-vibes text-2xl mb-2">Day 7</div>
+            <div class="text-white/70 font-vibes text-2xl mb-2">Day 7</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Kiss Day</h3>
             <p class="text-base text-gray-300 leading-relaxed px-2 font-light">The seal of our forever. A promise that I am yours, until my last breath.</p>
         </div>
-
         <div class="info-card" style="z-index: 20;">
             <div class="float-icon">🤗</div>
-            <div class="text-white/50 font-vibes text-2xl mb-2">Day 6</div>
+            <div class="text-white/70 font-vibes text-2xl mb-2">Day 6</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Hug Day</h3>
             <p class="text-base text-gray-300 leading-relaxed px-2 font-light">Your arms are my home. Nowhere else feels as safe as this.</p>
         </div>
-
         <div class="info-card" style="z-index: 30;">
             <div class="float-icon">🤝</div>
-            <div class="text-white/50 font-vibes text-2xl mb-2">Day 5</div>
+            <div class="text-white/70 font-vibes text-2xl mb-2">Day 5</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Promise Day</h3>
             <p class="text-base text-gray-300 leading-relaxed px-2 font-light">I promise to stand by you, to fight for us, and to love you endlessly.</p>
         </div>
-
         <div class="info-card" style="z-index: 40;">
             <div class="float-icon">🧸</div>
-            <div class="text-white/50 font-vibes text-2xl mb-2">Day 4</div>
+            <div class="text-white/70 font-vibes text-2xl mb-2">Day 4</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Teddy Day</h3>
             <p class="text-base text-gray-300 leading-relaxed px-2 font-light">I promise to be your comfort, your soft place to land when the world is hard.</p>
         </div>
-
         <div class="info-card" style="z-index: 50;">
             <div class="float-icon">🍫</div>
-            <div class="text-white/50 font-vibes text-2xl mb-2">Day 3</div>
+            <div class="text-white/70 font-vibes text-2xl mb-2">Day 3</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Chocolate Day</h3>
             <p class="text-base text-gray-300 leading-relaxed px-2 font-light">Life was bitter with distance, but you added the sweetness I was missing.</p>
         </div>
-
         <div class="info-card" style="z-index: 60;">
             <div class="float-icon">💍</div>
-            <div class="text-white/50 font-vibes text-2xl mb-2">Day 2</div>
+            <div class="text-white/70 font-vibes text-2xl mb-2">Day 2</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Propose Day</h3>
             <p class="text-base text-gray-300 leading-relaxed px-2 font-light">My heart whispered "Yes" to you long before my lips ever asked the question.</p>
         </div>
-
         <div class="info-card" style="z-index: 70;">
             <div class="float-icon">🌹</div>
-            <div class="text-white/50 font-vibes text-2xl mb-2">Day 1</div>
+            <div class="text-white/70 font-vibes text-2xl mb-2">Day 1</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Rose Day</h3>
             <p class="text-base text-gray-300 leading-relaxed px-2 font-light">Red for love, vibrant for life. I picked you out of the garden of the world.</p>
         </div>
-
     </section>
 
     <section class="h-screen w-full relative flex flex-col items-center justify-center bg-black overflow-hidden" id="final-section">
         
+        <div class="heartbeat-circle" style="animation-delay: 0s;"></div>
+        <div class="heartbeat-circle" style="animation-delay: 1s;"></div>
+        <div class="heartbeat-circle" style="animation-delay: 2s;"></div>
+        <div class="heartbeat-circle" style="animation-delay: 3s;"></div>
+
         <div class="z-10 text-center px-4 relative" id="proposal-container">
             <p class="font-vibes text-4xl text-gray-500 mb-8 opacity-0 reveal-final">Srija...</p>
             <h1 class="font-cinzel text-4xl md:text-6xl text-white mb-12 opacity-0 reveal-final leading-tight">
@@ -224,12 +270,13 @@
         </div>
 
         <div id="success-msg" class="absolute inset-0 flex flex-col items-center justify-center bg-black z-20 hidden opacity-0">
-             <div class="absolute w-[80vw] h-[80vw] bg-pink-600/30 rounded-full blur-[100px] animate-pulse"></div>
+             <div class="divine-light"></div>
+             
              <div class="z-30 text-center px-4 relative">
-                 <h1 class="font-vibes text-7xl md:text-9xl gold-text mb-4">
+                 <h1 class="neon-success text-7xl md:text-9xl mb-4">
                      She Said Yes!
                  </h1>
-                 <div class="w-full h-[1px] bg-gray-800 my-8"></div>
+                 <div class="w-full h-[1px] bg-white/20 my-8"></div>
                  <p class="text-2xl font-cinzel text-white mt-4">See you at the Mandap.</p>
                  <p class="text-sm text-gray-500 mt-8 uppercase tracking-widest">Bhargav ❤️ Srija</p>
              </div>
@@ -241,38 +288,26 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <script>
-        // 1. LOADER
+        // LOADER
         const loader = document.getElementById('loader');
         setTimeout(() => {
             gsap.to(loader, { yPercent: -100, duration: 1, ease: "power4.inOut", onComplete: () => { loader.style.display = 'none'; initAnimations(); }});
         }, 1500);
 
-        // 2. SMOOTH SCROLL (Mobile Optimized)
-        const lenis = new Lenis({ 
-            duration: 1.2, 
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-            smooth: true,
-            touchMultiplier: 2 // Makes touch scrolling more responsive
-        });
+        // SMOOTH SCROLL
+        const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, touchMultiplier: 2 });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // 3. ANIMATIONS
+        // ANIMATIONS
         gsap.registerPlugin(ScrollTrigger);
-        
-        // CRITICAL: Normalizes scroll on mobile to prevent address bar jitter
         ScrollTrigger.normalizeScroll(true);
 
         function initAnimations() {
-            
-            // HERO
-            gsap.to("#hero-content", {
-                y: -150,
-                opacity: 0,
-                scrollTrigger: { trigger: "#hero-section", start: "top top", end: "60% top", scrub: true }
-            });
+            // Hero
+            gsap.to("#hero-content", { y: -150, opacity: 0, scrollTrigger: { trigger: "#hero-section", start: "top top", end: "60% top", scrub: true }});
 
-            // STICKY TEXT
+            // Sticky Text
             ScrollTrigger.create({ trigger: "#struggle-pin", start: "top top", end: "+=1500", pin: true });
             let tlStruggle = gsap.timeline({ scrollTrigger: { trigger: "#struggle-pin", start: "top top", end: "+=1500", scrub: true } });
             tlStruggle.to(".struggle-text:nth-child(1)", { opacity: 1, y: 0, duration: 1 })
@@ -281,78 +316,54 @@
                       .to(".struggle-text:nth-child(2)", { opacity: 0, y: -50, duration: 1 }, "+=0.5")
                       .to(".struggle-text:nth-child(3)", { opacity: 1, y: 0, duration: 1 });
 
-            // CINEMATIC CARD FLIP (High Performance)
+            // Card Flip (STACK LOGIC)
             let cards = gsap.utils.toArray(".info-card");
             let cardsReversed = cards.slice().reverse(); 
-            
-            let tlCards = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#card-pin",
-                    start: "top top",
-                    end: "+=" + (cards.length * 800), 
-                    pin: true,
-                    scrub: 1
-                }
-            });
+            let tlCards = gsap.timeline({ scrollTrigger: { trigger: "#card-pin", start: "top top", end: "+=" + (cards.length * 800), pin: true, scrub: 1 }});
 
             for (let i = 0; i < cardsReversed.length - 1; i++) {
                 let currentCard = cardsReversed[i];
                 let nextCard = cardsReversed[i + 1];
-
-                // Set initial state of next card
-                gsap.set(nextCard, { 
-                    scale: 0.9, 
-                    y: 40, 
-                    opacity: 1 // Keep opacity 1, use Z-index to hide
-                });
-
+                gsap.set(nextCard, { scale: 0.9, y: 40, opacity: 1 });
                 let step = gsap.timeline();
-
-                // Simple Transform Animations (Fastest)
-                step.to(currentCard, {
-                    y: -1000,           
-                    rotation: -5, 
-                    opacity: 0,
-                    duration: 1.5,
-                    ease: "power2.inOut"
-                }, "transition" + i);
-
-                step.to(nextCard, {
-                    scale: 1,
-                    y: 0,
-                    duration: 1.5,
-                    ease: "power2.out"
-                }, "transition" + i + "+=0.1");
-
+                step.to(currentCard, { y: -1000, rotation: -5, opacity: 0, duration: 1.5, ease: "power2.inOut" }, "transition" + i);
+                step.to(nextCard, { scale: 1, y: 0, duration: 1.5, ease: "power2.out" }, "transition" + i + "+=0.1");
                 tlCards.add(step);
             }
 
-            // FINAL REVEAL
-            gsap.to(".reveal-final", {
-                y: 0, opacity: 1, scale: 1, duration: 1, stagger: 0.3,
-                scrollTrigger: { trigger: "#proposal-container", start: "top 70%" }
-            });
+            // Final Reveal
+            gsap.to(".reveal-final", { y: 0, opacity: 1, scale: 1, duration: 1, stagger: 0.3, scrollTrigger: { trigger: "#proposal-container", start: "top 70%" }});
         }
 
         // 4. INTERACTION
         function marryMe() {
+            // Explosive Confetti
             const duration = 5000;
             const animationEnd = Date.now() + duration;
-            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+            const defaults = { startVelocity: 45, spread: 360, ticks: 100, zIndex: 9999 };
             const interval = setInterval(function() {
                 const timeLeft = animationEnd - Date.now();
                 if (timeLeft <= 0) return clearInterval(interval);
-                const particleCount = 50 * (timeLeft / duration);
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: 0.5, y: 0.5 }, colors: ['#ff0055', '#ffffff'] }));
+                const particleCount = 100 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: 0.5, y: 0.5 }, colors: ['#ff0055', '#ffffff', '#FFD700'] }));
             }, 250);
 
             const container = document.getElementById('proposal-container');
             const successMsg = document.getElementById('success-msg');
 
             gsap.to(container, { opacity: 0, scale: 0.8, duration: 0.5, onComplete: () => { container.style.display = 'none'; }});
+            
             successMsg.style.display = 'flex';
             gsap.to(successMsg, { opacity: 1, duration: 1, delay: 0.5 });
-            gsap.from("#success-msg h1", { scale: 0.5, opacity: 0, duration: 1.5, ease: "elastic.out(1, 0.3)", delay: 0.6 });
+            
+            // Dramatic Text Entrance
+            gsap.from("#success-msg h1", { 
+                scale: 5, 
+                opacity: 0, 
+                duration: 1.5, 
+                ease: "elastic.out(1, 0.3)", 
+                delay: 0.6 
+            });
         }
     </script>
 </body>
