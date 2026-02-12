@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bhargav & Srija | The Eternal Story</title>
+    <title>Bhargav & Srija | The Story</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
 
     <style>
         :root {
-            --bg: #000000;
+            --bg: #050505;
             --text: #ffffff;
             --gold: #FFD700;
         }
@@ -22,63 +22,33 @@
             font-family: 'Satoshi', sans-serif;
             overflow-x: hidden;
             margin: 0;
+            /* Prevents rubber-banding on iOS */
+            overscroll-behavior: none;
         }
-
-        /* Smooth Scroll */
-        html.lenis { width: auto; height: auto; }
-        .lenis.lenis-smooth { scroll-behavior: auto !important; }
-        .lenis.lenis-stopped { overflow: hidden; }
 
         /* Typography */
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-vibes { font-family: 'Great Vibes', cursive; }
-        .text-shadow { text-shadow: 0 4px 30px rgba(0,0,0,0.9); }
+        
+        /* Optimized Gold Text (No heavy drop-shadows) */
         .gold-text {
-            background: linear-gradient(to bottom, #FFD700, #FDB931);
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.5));
         }
 
-        /* === 1. RICH ANIMATED BACKGROUND === */
+        /* === OPTIMIZED BACKGROUND === */
+        /* Replaced complex gradients with a simple static radial */
         .aurora-bg {
             position: absolute;
-            inset: -50%;
-            width: 200%;
-            height: 200%;
-            background: 
-                radial-gradient(circle at 50% 50%, #2a0015 0%, transparent 60%),
-                radial-gradient(circle at 100% 0%, #3b0042 0%, transparent 50%),
-                radial-gradient(circle at 0% 100%, #1a0b00 0%, transparent 50%),
-                radial-gradient(circle at 0% 0%, #240000 0%, transparent 50%);
-            filter: blur(80px);
+            inset: 0;
+            background: radial-gradient(circle at center, #1f0510 0%, #000000 70%);
             opacity: 0.6;
-            animation: aurora-spin 30s linear infinite;
             z-index: 0;
         }
 
-        @keyframes aurora-spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Fireflies */
-        .firefly {
-            position: absolute;
-            width: 3px; height: 3px;
-            background: var(--gold);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--gold);
-            animation: float-up 5s infinite linear;
-            opacity: 0;
-        }
-        @keyframes float-up {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
-        }
-
-        /* === 2. CINEMATIC 3D CARD STACK === */
+        /* === OPTIMIZED CARDS (GPU Accelerated) === */
         .card-section {
             height: 100vh;
             width: 100%;
@@ -86,7 +56,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            perspective: 1200px; /* High perspective for 3D depth */
+            perspective: 1000px;
             overflow: hidden;
         }
 
@@ -96,16 +66,14 @@
             height: 60vh;
             max-width: 400px;
             max-height: 600px;
-            border-radius: 24px;
+            border-radius: 20px;
             
-            /* === PREMIUM VELVET CARD BACKGROUND === */
-            background: linear-gradient(160deg, #1f0505 0%, #000000 100%);
-            background-image: 
-                linear-gradient(160deg, #1f0505 0%, #000000 100%),
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
-
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.9), inset 0 0 40px rgba(0,0,0,0.8);
+            /* Solid color is faster than gradient */
+            background-color: #0f0f0f;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            
+            /* Static shadow (cheaper than animated shadow) */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             
             display: flex;
             flex-direction: column;
@@ -114,27 +82,29 @@
             text-align: center;
             padding: 2rem;
             
-            will-change: transform, opacity, filter;
-            transform-style: preserve-3d;
+            /* FORCE GPU ACCELERATION */
+            transform: translate3d(0,0,0);
+            backface-visibility: hidden;
+            will-change: transform, opacity;
         }
 
-        /* Floating Icon */
+        /* Optimized Floating Icon */
         .float-icon { 
             font-size: 80px;
             margin-bottom: 20px;
-            filter: drop-shadow(0 0 25px rgba(255,255,255,0.2));
+            /* Removed drop-shadow for performance */
             animation: float 4s ease-in-out infinite; 
         }
         @keyframes float { 
             0%, 100% { transform: translateY(0); } 
-            50% { transform: translateY(-15px); } 
+            50% { transform: translateY(-10px); } 
         }
 
         /* Button */
         .heart-btn {
-            background: linear-gradient(to right, #e11d48, #be123c);
-            box-shadow: 0 0 30px rgba(225, 29, 72, 0.5);
-            transition: all 0.3s;
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);
+            transition: transform 0.2s;
         }
         .heart-btn:active { transform: scale(0.95); }
         
@@ -149,39 +119,36 @@
 
     <div class="loader" id="loader">
         <div class="text-6xl mb-4 animate-bounce">❤️</div>
-        <div class="font-cinzel text-white tracking-widest uppercase text-sm">Loading Memories...</div>
+        <div class="font-cinzel text-white tracking-widest uppercase text-sm">Loading Love...</div>
     </div>
 
     <section class="h-screen w-full relative overflow-hidden flex flex-col items-center justify-center bg-black" id="hero-section">
-        <div class="aurora-bg" id="hero-bg"></div>
-        <div id="fireflies-container"></div>
+        <div class="aurora-bg"></div>
 
-        <div class="z-10 text-center px-4 mix-blend-screen" id="hero-content">
-            <h2 class="text-xs md:text-sm uppercase tracking-[0.4em] mb-8 text-white/70">The Eternal Story of</h2>
-            <h1 class="text-5xl md:text-9xl font-black tracking-tighter text-white leading-tight drop-shadow-2xl">
+        <div class="z-10 text-center px-4" id="hero-content">
+            <h2 class="text-xs md:text-sm uppercase tracking-[0.5em] mb-6 text-white/60">The Eternal Union of</h2>
+            <h1 class="text-5xl md:text-9xl font-black tracking-tighter text-white leading-tight">
                 BHARGAV<br>
                 <span class="gold-text font-vibes text-7xl md:text-9xl block my-4">&</span>
                 SRIJA
             </h1>
         </div>
         
-        <div class="absolute bottom-12 flex flex-col items-center gap-2 opacity-80 animate-bounce">
-            <p class="text-[10px] tracking-[0.3em] uppercase text-white">Start the Journey</p>
+        <div class="absolute bottom-12 flex flex-col items-center gap-2 opacity-70 animate-bounce">
+            <p class="text-[10px] tracking-[0.3em] uppercase text-white">Begin Journey</p>
         </div>
     </section>
 
     <section class="h-screen w-full relative bg-black flex items-center justify-center overflow-hidden" id="struggle-pin">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black z-0 pointer-events-none"></div>
-
         <div class="z-10 text-center max-w-4xl px-6 relative h-full flex flex-col justify-center">
             <div class="struggle-text absolute inset-0 flex items-center justify-center opacity-0 translate-y-10">
-                <h2 class="text-4xl md:text-7xl font-bold text-gray-500">7 Days.</h2>
+                <h2 class="text-4xl md:text-7xl font-bold text-gray-500 tracking-tight">7 Days.</h2>
             </div>
             <div class="struggle-text absolute inset-0 flex items-center justify-center opacity-0 translate-y-10">
-                <h2 class="text-4xl md:text-7xl font-bold text-gray-400">7 Promises.</h2>
+                <h2 class="text-4xl md:text-7xl font-bold text-gray-400 tracking-tight">7 Promises.</h2>
             </div>
             <div class="struggle-text absolute inset-0 flex items-center justify-center opacity-0 translate-y-10">
-                <h2 class="text-5xl md:text-8xl font-bold text-white drop-shadow-2xl">
+                <h2 class="text-5xl md:text-8xl font-bold text-white tracking-tighter">
                     One Love Story.
                 </h2>
             </div>
@@ -192,51 +159,51 @@
         
         <div class="info-card" style="z-index: 10;">
             <div class="float-icon">💋</div>
-            <div class="text-gray-500 font-vibes text-2xl mb-2">Day 7</div>
+            <div class="text-white/50 font-vibes text-2xl mb-2">Day 7</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Kiss Day</h3>
-            <p class="text-base text-gray-300 leading-relaxed px-2">The seal of our forever. A promise that I am yours, until my last breath.</p>
+            <p class="text-base text-gray-300 leading-relaxed px-2 font-light">The seal of our forever. A promise that I am yours, until my last breath.</p>
         </div>
 
         <div class="info-card" style="z-index: 20;">
             <div class="float-icon">🤗</div>
-            <div class="text-gray-500 font-vibes text-2xl mb-2">Day 6</div>
+            <div class="text-white/50 font-vibes text-2xl mb-2">Day 6</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Hug Day</h3>
-            <p class="text-base text-gray-300 leading-relaxed px-2">Your arms are my home. Nowhere else feels as safe as this.</p>
+            <p class="text-base text-gray-300 leading-relaxed px-2 font-light">Your arms are my home. Nowhere else feels as safe as this.</p>
         </div>
 
         <div class="info-card" style="z-index: 30;">
             <div class="float-icon">🤝</div>
-            <div class="text-gray-500 font-vibes text-2xl mb-2">Day 5</div>
+            <div class="text-white/50 font-vibes text-2xl mb-2">Day 5</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Promise Day</h3>
-            <p class="text-base text-gray-300 leading-relaxed px-2">I promise to stand by you, to fight for us, and to love you endlessly.</p>
+            <p class="text-base text-gray-300 leading-relaxed px-2 font-light">I promise to stand by you, to fight for us, and to love you endlessly.</p>
         </div>
 
         <div class="info-card" style="z-index: 40;">
             <div class="float-icon">🧸</div>
-            <div class="text-gray-500 font-vibes text-2xl mb-2">Day 4</div>
+            <div class="text-white/50 font-vibes text-2xl mb-2">Day 4</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Teddy Day</h3>
-            <p class="text-base text-gray-300 leading-relaxed px-2">I promise to be your comfort, your soft place to land when the world is hard.</p>
+            <p class="text-base text-gray-300 leading-relaxed px-2 font-light">I promise to be your comfort, your soft place to land when the world is hard.</p>
         </div>
 
         <div class="info-card" style="z-index: 50;">
             <div class="float-icon">🍫</div>
-            <div class="text-gray-500 font-vibes text-2xl mb-2">Day 3</div>
+            <div class="text-white/50 font-vibes text-2xl mb-2">Day 3</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Chocolate Day</h3>
-            <p class="text-base text-gray-300 leading-relaxed px-2">Life was bitter with distance, but you added the sweetness I was missing.</p>
+            <p class="text-base text-gray-300 leading-relaxed px-2 font-light">Life was bitter with distance, but you added the sweetness I was missing.</p>
         </div>
 
         <div class="info-card" style="z-index: 60;">
             <div class="float-icon">💍</div>
-            <div class="text-gray-500 font-vibes text-2xl mb-2">Day 2</div>
+            <div class="text-white/50 font-vibes text-2xl mb-2">Day 2</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Propose Day</h3>
-            <p class="text-base text-gray-300 leading-relaxed px-2">My heart whispered "Yes" to you long before my lips ever asked the question.</p>
+            <p class="text-base text-gray-300 leading-relaxed px-2 font-light">My heart whispered "Yes" to you long before my lips ever asked the question.</p>
         </div>
 
         <div class="info-card" style="z-index: 70;">
             <div class="float-icon">🌹</div>
-            <div class="text-gray-500 font-vibes text-2xl mb-2">Day 1</div>
+            <div class="text-white/50 font-vibes text-2xl mb-2">Day 1</div>
             <h3 class="font-cinzel text-3xl mb-4 text-white">Rose Day</h3>
-            <p class="text-base text-gray-300 leading-relaxed px-2">Red for love, vibrant for life. I picked you out of the garden of the world.</p>
+            <p class="text-base text-gray-300 leading-relaxed px-2 font-light">Red for love, vibrant for life. I picked you out of the garden of the world.</p>
         </div>
 
     </section>
@@ -246,7 +213,7 @@
         <div class="z-10 text-center px-4 relative" id="proposal-container">
             <p class="font-vibes text-4xl text-gray-500 mb-8 opacity-0 reveal-final">Srija...</p>
             <h1 class="font-cinzel text-4xl md:text-6xl text-white mb-12 opacity-0 reveal-final leading-tight">
-                Will You Be My<br><span class="text-accent">Valentine?</span>
+                Will You Be My<br><span class="text-accent text-5xl md:text-7xl">Valentine?</span>
             </h1>
             <div class="relative group opacity-0 reveal-final scale-0" id="btn-wrapper">
                 <button onclick="marryMe()" 
@@ -259,11 +226,11 @@
         <div id="success-msg" class="absolute inset-0 flex flex-col items-center justify-center bg-black z-20 hidden opacity-0">
              <div class="absolute w-[80vw] h-[80vw] bg-pink-600/30 rounded-full blur-[100px] animate-pulse"></div>
              <div class="z-30 text-center px-4 relative">
-                 <h1 class="font-vibes text-7xl md:text-9xl text-accent mb-4 drop-shadow-2xl">
+                 <h1 class="font-vibes text-7xl md:text-9xl gold-text mb-4">
                      She Said Yes!
                  </h1>
                  <div class="w-full h-[1px] bg-gray-800 my-8"></div>
-                 <p class="text-2xl font-cinzel text-white mt-4 text-shadow">See you at the Mandap.</p>
+                 <p class="text-2xl font-cinzel text-white mt-4">See you at the Mandap.</p>
                  <p class="text-sm text-gray-500 mt-8 uppercase tracking-widest">Bhargav ❤️ Srija</p>
              </div>
         </div>
@@ -274,39 +241,31 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <script>
-        // 0. GENERATE FIREFLIES
-        const firefliesContainer = document.getElementById('fireflies-container');
-        for (let i = 0; i < 20; i++) {
-            let div = document.createElement('div');
-            div.className = 'firefly';
-            div.style.left = Math.random() * 100 + 'vw';
-            div.style.animationDelay = Math.random() * 5 + 's';
-            div.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            firefliesContainer.appendChild(div);
-        }
-
         // 1. LOADER
         const loader = document.getElementById('loader');
         setTimeout(() => {
             gsap.to(loader, { yPercent: -100, duration: 1, ease: "power4.inOut", onComplete: () => { loader.style.display = 'none'; initAnimations(); }});
         }, 1500);
 
-        // 2. SMOOTH SCROLL
-        const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
+        // 2. SMOOTH SCROLL (Mobile Optimized)
+        const lenis = new Lenis({ 
+            duration: 1.2, 
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+            smooth: true,
+            touchMultiplier: 2 // Makes touch scrolling more responsive
+        });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
         // 3. ANIMATIONS
         gsap.registerPlugin(ScrollTrigger);
+        
+        // CRITICAL: Normalizes scroll on mobile to prevent address bar jitter
+        ScrollTrigger.normalizeScroll(true);
 
         function initAnimations() {
             
             // HERO
-            gsap.to("#hero-bg", {
-                scale: 1.5,
-                rotation: 10,
-                scrollTrigger: { trigger: "#hero-section", start: "top top", end: "bottom top", scrub: true }
-            });
             gsap.to("#hero-content", {
                 y: -150,
                 opacity: 0,
@@ -322,17 +281,15 @@
                       .to(".struggle-text:nth-child(2)", { opacity: 0, y: -50, duration: 1 }, "+=0.5")
                       .to(".struggle-text:nth-child(3)", { opacity: 1, y: 0, duration: 1 });
 
-            // === FASTER CINEMATIC TRANSITION ===
-            
+            // CINEMATIC CARD FLIP (High Performance)
             let cards = gsap.utils.toArray(".info-card");
-            let cardsReversed = cards.slice().reverse(); // [Rose, Propose... Kiss]
+            let cardsReversed = cards.slice().reverse(); 
             
             let tlCards = gsap.timeline({
                 scrollTrigger: {
                     trigger: "#card-pin",
                     start: "top top",
-                    // REDUCED DISTANCE: 700px per card = Much faster scroll
-                    end: "+=" + (cards.length * 700), 
+                    end: "+=" + (cards.length * 800), 
                     pin: true,
                     scrub: 1
                 }
@@ -342,35 +299,30 @@
                 let currentCard = cardsReversed[i];
                 let nextCard = cardsReversed[i + 1];
 
-                // Initial State for Next Card
+                // Set initial state of next card
                 gsap.set(nextCard, { 
                     scale: 0.9, 
-                    y: 30, 
-                    filter: "blur(4px) brightness(0.6)",
-                    opacity: 1 
+                    y: 40, 
+                    opacity: 1 // Keep opacity 1, use Z-index to hide
                 });
 
                 let step = gsap.timeline();
 
-                // 1. Current Card Flies UP
+                // Simple Transform Animations (Fastest)
                 step.to(currentCard, {
                     y: -1000,           
-                    rotation: Math.random() * 5 - 2.5, 
-                    scale: 1.1,         
-                    filter: "blur(10px)", 
+                    rotation: -5, 
                     opacity: 0,
-                    duration: 1.5, // Faster duration
+                    duration: 1.5,
                     ease: "power2.inOut"
                 }, "transition" + i);
 
-                // 2. Next Card Snaps In
                 step.to(nextCard, {
                     scale: 1,
                     y: 0,
-                    filter: "blur(0px) brightness(1)",
                     duration: 1.5,
                     ease: "power2.out"
-                }, "transition" + i + "+=0.1"); // Tight overlap
+                }, "transition" + i + "+=0.1");
 
                 tlCards.add(step);
             }
