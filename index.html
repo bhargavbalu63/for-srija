@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bhargav & Srija | The Story</title>
+    <title>Bhargav & Srija | The Silver Story</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Great+Vibes&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg: #050505;
+            --bg: #000000;
             --text: #ffffff;
             --gold: #FFD700;
         }
@@ -25,33 +25,31 @@
             overscroll-behavior: none;
         }
 
-        /* Smooth Scroll */
         html.lenis { width: auto; height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
         .lenis.lenis-stopped { overflow: hidden; }
 
-        /* Typography */
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-vibes { font-family: 'Great Vibes', cursive; }
         
-        /* Gold Text */
+        /* FIX 1: BRIGHT VISIBLE TITLE TEXT */
         .gold-text {
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7);
+            color: #ffffff;
+            background: linear-gradient(to right, #ffffff, #FFD700, #ffffff);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); /* Glow to make it pop */
         }
 
-        /* === 1. BACKGROUND === */
         .aurora-bg {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at center, #1f0510 0%, #000000 70%);
-            opacity: 0.6;
+            background: radial-gradient(circle at center, #222222 0%, #000000 90%);
+            opacity: 1;
             z-index: 0;
         }
 
-        /* === 2. CARDS (UPDATED: PREMIUM RED VELVET) === */
         .card-section {
             height: 100vh;
             width: 100%;
@@ -63,6 +61,7 @@
             overflow: hidden;
         }
 
+        /* FIX 2: SOLID SILVER CARD (NO TRANSPARENCY) */
         .info-card {
             position: absolute;
             width: 85vw;
@@ -71,49 +70,70 @@
             max-height: 600px;
             border-radius: 20px;
             
-            /* === NEW PREMIUM RED BACKGROUND === */
-            background: linear-gradient(145deg, #1a0505 0%, #2b0a0a 100%);
+            /* 1. Solid Base Color (Blocks everything behind it) */
+            background-color: #dcdcdc; 
             
-            /* Subtle Noise Texture for "Paper" feel */
-            background-image: 
-                linear-gradient(145deg, #1a0505 0%, #2b0a0a 100%),
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+            /* 2. Solid Metal Gradient (No transparent values) */
+            background: linear-gradient(145deg, #ffffff 0%, #dcdcdc 40%, #999999 100%);
             
-            /* Inner Glow & Deep Shadow */
-           
+            /* 3. Deep Shadow to separate cards */
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,1), /* Black shadow underneath */
+                inset 0 0 0 1px rgba(255,255,255,0.8); /* White edge highlight */
             
-            /* Subtle Border */
-            border: 1px solid rgba(255, 255, 255, 0.08);
-
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 2rem;
+            
             transform: translate3d(0,0,0);
-            backface-visibility: hidden;
+            backface-visibility: hidden; /* Hides back of card */
             will-change: transform, opacity;
+        }
+
+        /* TEXT ON SILVER CARD */
+        .info-card .day-label {
+            color: #444; /* Dark Grey */
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card h3 {
+            color: #000000; /* Solid Black Title */
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            /* Engraved Effect */
+            text-shadow: 0px 1px 0px rgba(255,255,255,1);
+        }
+        
+        .info-card p {
+            color: #333333; /* Dark Grey Text */
+            font-weight: 600;
+            line-height: 1.6;
         }
 
         .float-icon { 
             font-size: 80px;
             margin-bottom: 20px;
-            /* Added glow behind emoji to pop against red */
-            filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
-            animation: float 4s ease-in-out infinite; 
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
+            animation: float 4s ease-in-out infinite;
+            will-change: transform; 
         }
         @keyframes float { 
-            0%, 100% { transform: translateY(0); } 
-            50% { transform: translateY(-10px); } 
+            0%, 100% { transform: translate3d(0, 0, 0); } 
+            50% { transform: translate3d(0, -10px, 0); } 
         }
 
-        /* === 3. GRAND FINALE STYLES === */
-        
-        /* Heartbeat Tunnel Background */
+        /* FINAL SCREEN */
         .heartbeat-circle {
             position: absolute;
-            border: 2px solid rgba(255, 0, 85, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
@@ -124,53 +144,48 @@
             100% { width: 1000px; height: 1000px; opacity: 0; }
         }
 
-        /* The Neon "She Said Yes" Text */
         .neon-success {
             font-family: 'Great Vibes', cursive;
             color: #fff;
-            text-shadow: 
-                0 0 10px #ff0055,
-                0 0 20px #ff0055,
-                0 0 40px #ff0055,
-                0 0 80px #ff0055;
+            text-shadow: 0 0 10px #ffffff, 0 0 20px #FFD700;
             animation: pulse-neon 1.5s infinite alternate;
         }
         @keyframes pulse-neon {
-            from { text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055; }
-            to { text-shadow: 0 0 20px #ff0055, 0 0 40px #ff0055, 0 0 60px #ff0055; }
+            from { opacity: 0.8; }
+            to { opacity: 1; text-shadow: 0 0 20px #ffffff, 0 0 40px #FFD700; }
         }
 
-        /* Divine Light Background */
         .divine-light {
             position: absolute;
             width: 200vw;
             height: 200vw;
-            background: radial-gradient(circle, rgba(255,0,85,0.2) 0%, transparent 60%);
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
             animation: spin-light 20s linear infinite;
             z-index: -1;
+            will-change: transform;
         }
         @keyframes spin-light { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* Button */
         .heart-btn {
             background: linear-gradient(135deg, #e11d48, #be123c);
             box-shadow: 0 0 20px rgba(225, 29, 72, 0.6);
+            border: 1px solid rgba(255,255,255,0.2);
             transition: transform 0.2s;
         }
         .heart-btn:active { transform: scale(0.95); }
         
-        /* Loader */
         .loader {
             position: fixed; inset: 0; background: #000; z-index: 9999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease;
         }
     </style>
 </head>
 <body class="antialiased">
 
     <div class="loader" id="loader">
-        <div class="text-6xl mb-4 animate-bounce">❤️</div>
-        <div class="font-cinzel text-white tracking-widest uppercase text-sm">Loading Love...</div>
+        <div class="text-6xl mb-4 animate-bounce">💍</div>
+        <div class="font-cinzel text-white tracking-widest uppercase text-sm">Forging Silver...</div>
     </div>
 
     <section class="h-screen w-full relative overflow-hidden flex flex-col items-center justify-center bg-black" id="hero-section">
@@ -197,7 +212,7 @@
                 <h2 class="text-4xl md:text-7xl font-bold text-gray-400 tracking-tight">7 Promises.</h2>
             </div>
             <div class="struggle-text absolute inset-0 flex items-center justify-center opacity-0 translate-y-10">
-                <h2 class="text-5xl md:text-8xl font-bold text-white tracking-tighter">One Love Story.</h2>
+                <h2 class="text-5xl md:text-8xl font-bold gold-text tracking-tighter">One Love Story.</h2>
             </div>
         </div>
     </section>
@@ -205,45 +220,45 @@
     <section class="card-section bg-black" id="card-pin">
         <div class="info-card" style="z-index: 10;">
             <div class="float-icon">💋</div>
-            <div class="text-white/70 font-vibes text-2xl mb-2">Day 7</div>
-            <h3 class="font-cinzel text-3xl mb-4 text-white">Kiss Day</h3>
-            <p class="text-base text-gray-300 leading-relaxed px-2 font-light">The seal of our forever. A promise that I am yours, until my last breath.</p>
+            <div class="day-label">Day 7</div>
+            <h3 class="text-3xl">Kiss Day</h3>
+            <p class="text-base px-2">The seal of our forever. A promise that I am yours, until my last breath.</p>
         </div>
         <div class="info-card" style="z-index: 20;">
             <div class="float-icon">🤗</div>
-            <div class="text-white/70 font-vibes text-2xl mb-2">Day 6</div>
-            <h3 class="font-cinzel text-3xl mb-4 text-white">Hug Day</h3>
-            <p class="text-base text-gray-300 leading-relaxed px-2 font-light">Your arms are my home. Nowhere else feels as safe as this.</p>
+            <div class="day-label">Day 6</div>
+            <h3 class="text-3xl">Hug Day</h3>
+            <p class="text-base px-2">Your arms are my home. Nowhere else feels as safe as this.</p>
         </div>
         <div class="info-card" style="z-index: 30;">
             <div class="float-icon">🤝</div>
-            <div class="text-white/70 font-vibes text-2xl mb-2">Day 5</div>
-            <h3 class="font-cinzel text-3xl mb-4 text-white">Promise Day</h3>
-            <p class="text-base text-gray-300 leading-relaxed px-2 font-light">I promise to stand by you, to fight for us, and to love you endlessly.</p>
+            <div class="day-label">Day 5</div>
+            <h3 class="text-3xl">Promise Day</h3>
+            <p class="text-base px-2">I promise to stand by you, to fight for us, and to love you endlessly.</p>
         </div>
         <div class="info-card" style="z-index: 40;">
             <div class="float-icon">🧸</div>
-            <div class="text-white/70 font-vibes text-2xl mb-2">Day 4</div>
-            <h3 class="font-cinzel text-3xl mb-4 text-white">Teddy Day</h3>
-            <p class="text-base text-gray-300 leading-relaxed px-2 font-light">I promise to be your comfort, your soft place to land when the world is hard.</p>
+            <div class="day-label">Day 4</div>
+            <h3 class="text-3xl">Teddy Day</h3>
+            <p class="text-base px-2">I promise to be your comfort, your soft place to land when the world is hard.</p>
         </div>
         <div class="info-card" style="z-index: 50;">
             <div class="float-icon">🍫</div>
-            <div class="text-white/70 font-vibes text-2xl mb-2">Day 3</div>
-            <h3 class="font-cinzel text-3xl mb-4 text-white">Chocolate Day</h3>
-            <p class="text-base text-gray-300 leading-relaxed px-2 font-light">Life was bitter with distance, but you added the sweetness I was missing.</p>
+            <div class="day-label">Day 3</div>
+            <h3 class="text-3xl">Chocolate Day</h3>
+            <p class="text-base px-2">Life was bitter with distance, but you added the sweetness I was missing.</p>
         </div>
         <div class="info-card" style="z-index: 60;">
             <div class="float-icon">💍</div>
-            <div class="text-white/70 font-vibes text-2xl mb-2">Day 2</div>
-            <h3 class="font-cinzel text-3xl mb-4 text-white">Propose Day</h3>
-            <p class="text-base text-gray-300 leading-relaxed px-2 font-light">My heart whispered "Yes" to you long before my lips ever asked the question.</p>
+            <div class="day-label">Day 2</div>
+            <h3 class="text-3xl">Propose Day</h3>
+            <p class="text-base px-2">My heart whispered "Yes" to you long before my lips ever asked the question.</p>
         </div>
         <div class="info-card" style="z-index: 70;">
             <div class="float-icon">🌹</div>
-            <div class="text-white/70 font-vibes text-2xl mb-2">Day 1</div>
-            <h3 class="font-cinzel text-3xl mb-4 text-white">Rose Day</h3>
-            <p class="text-base text-gray-300 leading-relaxed px-2 font-light">Red for love, vibrant for life. I picked you out of the garden of the world.</p>
+            <div class="day-label">Day 1</div>
+            <h3 class="text-3xl">Rose Day</h3>
+            <p class="text-base px-2">Red for love, vibrant for life. I picked you out of the garden of the world.</p>
         </div>
     </section>
 
@@ -257,7 +272,7 @@
         <div class="z-10 text-center px-4 relative" id="proposal-container">
             <p class="font-vibes text-4xl text-gray-500 mb-8 opacity-0 reveal-final">Srija...</p>
             <h1 class="font-cinzel text-4xl md:text-6xl text-white mb-12 opacity-0 reveal-final leading-tight">
-                Will You Be My<br><span class="text-accent text-5xl md:text-7xl">Valentine?</span>
+                Will You Be My<br><span class="gold-text text-5xl md:text-7xl">Valentine?</span>
             </h1>
             <div class="relative group opacity-0 reveal-final scale-0" id="btn-wrapper">
                 <button onclick="marryMe()" 
@@ -286,22 +301,34 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <script>
-        // LOADER
-        const loader = document.getElementById('loader');
-        setTimeout(() => {
-            gsap.to(loader, { yPercent: -100, duration: 1, ease: "power4.inOut", onComplete: () => { loader.style.display = 'none'; initAnimations(); }});
-        }, 1500);
+        // === 1. FAIL-SAFE LOADER ===
+        function removeLoader() {
+            const loader = document.getElementById('loader');
+            if(loader && loader.style.display !== 'none') {
+                if (typeof gsap !== 'undefined') {
+                    gsap.to(loader, { yPercent: -100, duration: 1, ease: "power4.inOut", onComplete: () => { loader.style.display = 'none'; }});
+                } else {
+                    loader.style.opacity = '0';
+                    setTimeout(() => { loader.style.display = 'none'; }, 500);
+                }
+                initAnimations();
+            }
+        }
+        window.addEventListener('load', removeLoader);
+        setTimeout(removeLoader, 3000);
 
-        // SMOOTH SCROLL
+        // === 2. SMOOTH SCROLL ===
         const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, touchMultiplier: 2 });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // ANIMATIONS
-        gsap.registerPlugin(ScrollTrigger);
-        ScrollTrigger.normalizeScroll(true);
-
+        // === 3. ANIMATIONS ===
         function initAnimations() {
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+            gsap.registerPlugin(ScrollTrigger);
+            ScrollTrigger.normalizeScroll(true); 
+
             // Hero
             gsap.to("#hero-content", { y: -150, opacity: 0, scrollTrigger: { trigger: "#hero-section", start: "top top", end: "60% top", scrub: true }});
 
@@ -314,7 +341,7 @@
                       .to(".struggle-text:nth-child(2)", { opacity: 0, y: -50, duration: 1 }, "+=0.5")
                       .to(".struggle-text:nth-child(3)", { opacity: 1, y: 0, duration: 1 });
 
-            // Card Flip (STACK LOGIC)
+            // Card Flip
             let cards = gsap.utils.toArray(".info-card");
             let cardsReversed = cards.slice().reverse(); 
             let tlCards = gsap.timeline({ scrollTrigger: { trigger: "#card-pin", start: "top top", end: "+=" + (cards.length * 800), pin: true, scrub: 1 }});
@@ -333,9 +360,8 @@
             gsap.to(".reveal-final", { y: 0, opacity: 1, scale: 1, duration: 1, stagger: 0.3, scrollTrigger: { trigger: "#proposal-container", start: "top 70%" }});
         }
 
-        // 4. INTERACTION
+        // === 4. INTERACTION ===
         function marryMe() {
-            // Explosive Confetti
             const duration = 5000;
             const animationEnd = Date.now() + duration;
             const defaults = { startVelocity: 45, spread: 360, ticks: 100, zIndex: 9999 };
@@ -343,25 +369,16 @@
                 const timeLeft = animationEnd - Date.now();
                 if (timeLeft <= 0) return clearInterval(interval);
                 const particleCount = 100 * (timeLeft / duration);
-                confetti(Object.assign({}, defaults, { particleCount, origin: { x: 0.5, y: 0.5 }, colors: ['#ff0055', '#ffffff', '#FFD700'] }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: 0.5, y: 0.5 }, colors: ['#C0C0C0', '#ffffff', '#FFD700'] }));
             }, 250);
 
             const container = document.getElementById('proposal-container');
             const successMsg = document.getElementById('success-msg');
 
             gsap.to(container, { opacity: 0, scale: 0.8, duration: 0.5, onComplete: () => { container.style.display = 'none'; }});
-            
             successMsg.style.display = 'flex';
             gsap.to(successMsg, { opacity: 1, duration: 1, delay: 0.5 });
-            
-            // Dramatic Text Entrance
-            gsap.from("#success-msg h1", { 
-                scale: 5, 
-                opacity: 0, 
-                duration: 1.5, 
-                ease: "elastic.out(1, 0.3)", 
-                delay: 0.6 
-            });
+            gsap.from("#success-msg h1", { scale: 5, opacity: 0, duration: 1.5, ease: "elastic.out(1, 0.3)", delay: 0.6 });
         }
     </script>
 </body>
