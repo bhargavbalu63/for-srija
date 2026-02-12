@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bhargav & Srija | The Royal Love Story</title>
+    <title>Bhargav & Srija | The Story</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300&display=swap" rel="stylesheet">
@@ -34,49 +34,54 @@
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-vibes { font-family: 'Great Vibes', cursive; }
         .text-shadow { text-shadow: 0 4px 30px rgba(0,0,0,0.9); }
+        .gold-text {
+            background: linear-gradient(to bottom, #FFD700, #FDB931);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.5));
+        }
 
-        /* === 1. RICH BACKGROUND ANIMATION === */
+        /* === RICH COLORFUL ANIMATED BACKGROUND (RESTORED) === */
         .aurora-bg {
             position: absolute;
             inset: -50%;
             width: 200%;
             height: 200%;
             background: 
-                radial-gradient(circle at 50% 50%, #2a0015 0%, transparent 60%),
-                radial-gradient(circle at 100% 0%, #4a0028 0%, transparent 50%),
-                radial-gradient(circle at 0% 100%, #3d0000 0%, transparent 50%);
-            filter: blur(80px);
-            opacity: 0.6;
-            animation: aurora-spin 25s linear infinite;
+                radial-gradient(circle at 50% 50%, #2a0015 0%, transparent 50%),
+                radial-gradient(circle at 0% 0%, #3b0042 0%, transparent 40%),
+                radial-gradient(circle at 100% 0%, #4a0028 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, #1a0b00 0%, transparent 40%),
+                radial-gradient(circle at 0% 100%, #240000 0%, transparent 40%);
+            filter: blur(60px);
+            opacity: 0.8;
+            animation: aurora-spin 20s linear infinite;
             z-index: 0;
         }
+
         @keyframes aurora-spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        /* === 2. FIXED: BRIGHT SHINING GOLD TEXT === */
-        .shining-text {
-            color: #fff;
-            /* High contrast bright gold to white gradient */
-            background: linear-gradient(to bottom, #ffffff 0%, #ffd700 50%, #ffac30 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 0px 15px rgba(255, 215, 0, 0.6));
-            padding-bottom: 0.2em;
+        /* Sparkles/Fireflies (RESTORED) */
+        .firefly {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--gold);
+            animation: float-up 5s infinite linear;
+            opacity: 0;
+        }
+        @keyframes float-up {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
         }
 
-        /* === 3. RICH JEWEL-TONE CARD BACKGROUNDS === */
-        /* These replace the boring black/white cards */
-        .card-bg-rose { background: linear-gradient(135deg, #4a0010 0%, #1a0005 100%); border: 1px solid #ff3333; box-shadow: 0 0 30px rgba(255, 0, 0, 0.2); }
-        .card-bg-propose { background: linear-gradient(135deg, #4a3500 0%, #1a1200 100%); border: 1px solid #ffd700; box-shadow: 0 0 30px rgba(255, 215, 0, 0.2); }
-        .card-bg-choc { background: linear-gradient(135deg, #3d1c09 0%, #1a0802 100%); border: 1px solid #8b4513; box-shadow: 0 0 30px rgba(139, 69, 19, 0.2); }
-        .card-bg-teddy { background: linear-gradient(135deg, #4a0035 0%, #1a0010 100%); border: 1px solid #ff69b4; box-shadow: 0 0 30px rgba(255, 105, 180, 0.2); }
-        .card-bg-promise { background: linear-gradient(135deg, #001a4a 0%, #00051a 100%); border: 1px solid #4169e1; box-shadow: 0 0 30px rgba(65, 105, 225, 0.2); }
-        .card-bg-hug { background: linear-gradient(135deg, #4a1a00 0%, #1a0500 100%); border: 1px solid #ff8c00; box-shadow: 0 0 30px rgba(255, 140, 0, 0.2); }
-        .card-bg-kiss { background: linear-gradient(135deg, #4a0000 0%, #1a0000 100%); border: 1px solid #ff0000; box-shadow: 0 0 30px rgba(255, 0, 0, 0.2); }
-
-        /* 3D BOOK STYLING */
+        /* === 3D BOOK STYLING === */
         .book-section {
             height: 100vh;
             width: 100%;
@@ -84,7 +89,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            perspective: 1200px; /* Perfect for mobile */
+            perspective: 1500px; 
             overflow: hidden;
         }
 
@@ -94,7 +99,11 @@
             height: 65vh;
             max-width: 400px;
             max-height: 600px;
-            border-radius: 24px;
+            border-radius: 20px;
+            /* CLEAN SOLID BACKGROUND (No Gradients/Borders) */
+            background-color: #111111;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -106,21 +115,24 @@
             backface-visibility: hidden;
         }
 
+        /* Floating Icon (RESTORED) */
         .float-icon { 
             font-size: 80px;
             margin-bottom: 20px;
-            filter: drop-shadow(0 0 20px rgba(255,255,255,0.4)); /* Glow behind emoji */
             animation: float 4s ease-in-out infinite; 
         }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes float { 
+            0%, 100% { transform: translateY(0); } 
+            50% { transform: translateY(-15px); } 
+        }
 
         /* Button */
         .heart-btn {
-            background: linear-gradient(45deg, #ff0055, #ff3366);
-            box-shadow: 0 0 30px rgba(255, 0, 85, 0.4);
-            transition: all 0.3s;
+            background: #ff0055;
+            transition: all 0.2s;
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.4);
         }
-        .heart-btn:hover { transform: scale(1.1); box-shadow: 0 0 50px rgba(255, 0, 85, 0.8); }
+        .heart-btn:active { transform: scale(0.95); }
         
         /* Loader */
         .loader {
@@ -133,38 +145,42 @@
 
     <div class="loader" id="loader">
         <div class="text-6xl mb-4 animate-bounce">❤️</div>
-        <div class="font-cinzel text-accent tracking-widest uppercase text-sm" id="load-text">Opening The Story...</div>
+        <div class="font-cinzel text-white tracking-widest uppercase text-sm">Loading...</div>
     </div>
 
     <section class="h-screen w-full relative overflow-hidden flex flex-col items-center justify-center bg-black" id="hero-section">
+        
         <div class="aurora-bg" id="hero-bg"></div>
         
+        <div id="fireflies-container"></div>
+
         <div class="z-10 text-center px-4 mix-blend-screen" id="hero-content">
-            <h2 class="text-xs md:text-sm uppercase tracking-[0.4em] mb-8 text-white/70">The Eternal Union of</h2>
+            <h2 class="text-xs md:text-sm uppercase tracking-[0.4em] mb-8 text-white/70">The Story of</h2>
             <h1 class="text-5xl md:text-9xl font-black tracking-tighter text-white leading-tight drop-shadow-2xl">
                 BHARGAV<br>
-                <span class="text-yellow-400 font-vibes text-7xl md:text-9xl block my-4 drop-shadow-lg">&</span>
+                <span class="gold-text font-vibes text-7xl md:text-9xl block my-4">&</span>
                 SRIJA
             </h1>
         </div>
         
-        <div class="absolute bottom-12 animate-bounce flex flex-col items-center gap-2 opacity-80" id="scroll-indicator">
-            <p class="text-[10px] tracking-[0.3em] uppercase text-white">Start the Journey</p>
-            <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
+        <div class="absolute bottom-12 flex flex-col items-center gap-2 opacity-80 animate-bounce">
+            <p class="text-[10px] tracking-[0.3em] uppercase text-white">Scroll Down</p>
         </div>
     </section>
 
     <section class="h-screen w-full relative bg-black flex items-center justify-center overflow-hidden" id="struggle-pin">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black z-0 pointer-events-none"></div>
+
         <div class="z-10 text-center max-w-4xl px-6 relative h-full flex flex-col justify-center">
             <div class="struggle-text absolute inset-0 flex items-center justify-center opacity-0 translate-y-10">
-                <h2 class="text-4xl md:text-7xl font-bold text-gray-500">7 Days</h2>
+                <h2 class="text-4xl md:text-7xl font-bold text-gray-500">7 Days.</h2>
             </div>
             <div class="struggle-text absolute inset-0 flex items-center justify-center opacity-0 translate-y-10">
-                <h2 class="text-4xl md:text-7xl font-bold text-gray-400">7 Promises</h2>
+                <h2 class="text-4xl md:text-7xl font-bold text-gray-400">7 Promises.</h2>
             </div>
             <div class="struggle-text absolute inset-0 flex items-center justify-center opacity-0 translate-y-10">
-                <h2 class="text-5xl md:text-8xl font-bold shining-text">
-                    One Love Story
+                <h2 class="text-5xl md:text-8xl font-bold text-white">
+                    One Love Story.
                 </h2>
             </div>
         </div>
@@ -172,59 +188,58 @@
 
     <section class="book-section bg-black" id="book-pin">
         
-        <div class="book-card card-bg-kiss" style="z-index: 10;">
+        <div class="book-card" style="z-index: 10;">
             <div class="float-icon">💋</div>
-            <div class="text-white/80 font-vibes text-2xl mb-2">Day 7</div>
-            <h3 class="font-cinzel text-3xl mb-4 text-white drop-shadow-lg">Kiss Day</h3>
-            <p class="text-base text-gray-200 leading-relaxed px-2">The seal of our forever. A promise that I am yours, until my last breath.</p>
+            <div class="text-gray-500 font-vibes text-2xl mb-2">Day 7</div>
+            <h3 class="font-cinzel text-3xl mb-4 text-white">Kiss Day</h3>
+            <p class="text-base text-gray-300 leading-relaxed px-2">The seal of our forever. A promise that I am yours, until my last breath.</p>
         </div>
 
-        <div class="book-card card-bg-hug" style="z-index: 20;">
+        <div class="book-card" style="z-index: 20;">
             <div class="float-icon">🤗</div>
-            <div class="text-white/80 font-vibes text-2xl mb-2">Day 6</div>
-            <h3 class="font-cinzel text-3xl mb-4 text-white drop-shadow-lg">Hug Day</h3>
-            <p class="text-base text-gray-200 leading-relaxed px-2">Your arms are my home. Nowhere else feels as safe as this.</p>
+            <div class="text-gray-500 font-vibes text-2xl mb-2">Day 6</div>
+            <h3 class="font-cinzel text-3xl mb-4 text-white">Hug Day</h3>
+            <p class="text-base text-gray-300 leading-relaxed px-2">Your arms are my home. Nowhere else feels as safe as this.</p>
         </div>
 
-        <div class="book-card card-bg-promise" style="z-index: 30;">
+        <div class="book-card" style="z-index: 30;">
             <div class="float-icon">🤝</div>
-            <div class="text-white/80 font-vibes text-2xl mb-2">Day 5</div>
-            <h3 class="font-cinzel text-3xl mb-4 text-white drop-shadow-lg">Promise Day</h3>
-            <p class="text-base text-gray-200 leading-relaxed px-2">I promise to stand by you, to fight for us, and to love you endlessly.</p>
+            <div class="text-gray-500 font-vibes text-2xl mb-2">Day 5</div>
+            <h3 class="font-cinzel text-3xl mb-4 text-white">Promise Day</h3>
+            <p class="text-base text-gray-300 leading-relaxed px-2">I promise to stand by you, to fight for us, and to love you endlessly.</p>
         </div>
 
-        <div class="book-card card-bg-teddy" style="z-index: 40;">
+        <div class="book-card" style="z-index: 40;">
             <div class="float-icon">🧸</div>
-            <div class="text-white/80 font-vibes text-2xl mb-2">Day 4</div>
-            <h3 class="font-cinzel text-3xl mb-4 text-white drop-shadow-lg">Teddy Day</h3>
-            <p class="text-base text-gray-200 leading-relaxed px-2">I promise to be your comfort, your soft place to land when the world is hard.</p>
+            <div class="text-gray-500 font-vibes text-2xl mb-2">Day 4</div>
+            <h3 class="font-cinzel text-3xl mb-4 text-white">Teddy Day</h3>
+            <p class="text-base text-gray-300 leading-relaxed px-2">I promise to be your comfort, your soft place to land when the world is hard.</p>
         </div>
 
-        <div class="book-card card-bg-choc" style="z-index: 50;">
+        <div class="book-card" style="z-index: 50;">
             <div class="float-icon">🍫</div>
-            <div class="text-white/80 font-vibes text-2xl mb-2">Day 3</div>
-            <h3 class="font-cinzel text-3xl mb-4 text-white drop-shadow-lg">Chocolate Day</h3>
-            <p class="text-base text-gray-200 leading-relaxed px-2">Life was bitter with distance, but you added the sweetness I was missing.</p>
+            <div class="text-gray-500 font-vibes text-2xl mb-2">Day 3</div>
+            <h3 class="font-cinzel text-3xl mb-4 text-white">Chocolate Day</h3>
+            <p class="text-base text-gray-300 leading-relaxed px-2">Life was bitter with distance, but you added the sweetness I was missing.</p>
         </div>
 
-        <div class="book-card card-bg-propose" style="z-index: 60;">
+        <div class="book-card" style="z-index: 60;">
             <div class="float-icon">💍</div>
-            <div class="text-white/80 font-vibes text-2xl mb-2">Day 2</div>
-            <h3 class="font-cinzel text-3xl mb-4 text-white drop-shadow-lg">Propose Day</h3>
-            <p class="text-base text-gray-200 leading-relaxed px-2">My heart whispered "Yes" to you long before my lips ever asked the question.</p>
+            <div class="text-gray-500 font-vibes text-2xl mb-2">Day 2</div>
+            <h3 class="font-cinzel text-3xl mb-4 text-white">Propose Day</h3>
+            <p class="text-base text-gray-300 leading-relaxed px-2">My heart whispered "Yes" to you long before my lips ever asked the question.</p>
         </div>
 
-        <div class="book-card card-bg-rose" style="z-index: 70;">
+        <div class="book-card" style="z-index: 70;">
             <div class="float-icon">🌹</div>
-            <div class="text-white/80 font-vibes text-2xl mb-2">Day 1</div>
-            <h3 class="font-cinzel text-3xl mb-4 text-white drop-shadow-lg">Rose Day</h3>
-            <p class="text-base text-gray-200 leading-relaxed px-2">Red for love, vibrant for life. I picked you out of the garden of the world.</p>
+            <div class="text-gray-500 font-vibes text-2xl mb-2">Day 1</div>
+            <h3 class="font-cinzel text-3xl mb-4 text-white">Rose Day</h3>
+            <p class="text-base text-gray-300 leading-relaxed px-2">Red for love, vibrant for life. I picked you out of the garden of the world.</p>
         </div>
 
     </section>
 
     <section class="h-screen w-full relative flex flex-col items-center justify-center bg-black overflow-hidden" id="final-section">
-        <div class="absolute w-[500px] h-[500px] bg-red-900/20 rounded-full blur-[100px] animate-pulse"></div>
         
         <div class="z-10 text-center px-4 relative" id="proposal-container">
             <p class="font-vibes text-4xl text-gray-500 mb-8 opacity-0 reveal-final">Srija...</p>
@@ -257,11 +272,22 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <script>
+        // 0. GENERATE FIREFLIES
+        const firefliesContainer = document.getElementById('fireflies-container');
+        for (let i = 0; i < 20; i++) {
+            let div = document.createElement('div');
+            div.className = 'firefly';
+            div.style.left = Math.random() * 100 + 'vw';
+            div.style.animationDelay = Math.random() * 5 + 's';
+            div.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            firefliesContainer.appendChild(div);
+        }
+
         // 1. LOADER
         const loader = document.getElementById('loader');
         setTimeout(() => {
             gsap.to(loader, { yPercent: -100, duration: 1, ease: "power4.inOut", onComplete: () => { loader.style.display = 'none'; initAnimations(); }});
-        }, 2000);
+        }, 1500);
 
         // 2. SMOOTH SCROLL
         const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
@@ -273,7 +299,7 @@
 
         function initAnimations() {
             
-            // HERO
+            // HERO: Rich Parallax & Zoom Effect (RESTORED)
             gsap.to("#hero-bg", {
                 scale: 1.5,
                 rotation: 10,
@@ -321,7 +347,7 @@
 
             cardsToAnimate.forEach((card) => {
                 tlBook.to(card, {
-                    rotationX: -120,    
+                    rotationX: -110,    
                     opacity: 0,         
                     z: -500,            
                     duration: 1.5,
