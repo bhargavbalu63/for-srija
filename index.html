@@ -32,21 +32,52 @@
         .font-cinzel { font-family: 'Cinzel', serif; }
         .font-vibes { font-family: 'Great Vibes', cursive; }
         
+        /* TITLE TEXT SHIMMER EFFECT */
         .gold-text {
             color: #ffffff;
-            background: linear-gradient(to right, #ffffff, #FFD700, #ffffff);
+            background: linear-gradient(to right, #ffffff 20%, #a1a1a1 40%, #ffffff 60%, #a1a1a1 80%);
+            background-size: 200% auto;
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            animation: shine 5s linear infinite;
+        }
+        @keyframes shine {
+            to { background-position: 200% center; }
         }
 
+        /* BREATHING BACKGROUND */
         .aurora-bg {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at center, #222222 0%, #000000 90%);
+            background: radial-gradient(circle at center, #2a2a2a 0%, #000000 90%);
             opacity: 1;
             z-index: 0;
+            animation: breathe 10s infinite alternate ease-in-out;
+        }
+        @keyframes breathe {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* SILVER STARDUST PARTICLES */
+        .firefly {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #ffffff, 0 0 15px #a1a1a1;
+            animation: float-up 10s infinite linear;
+            opacity: 0;
+            z-index: 1;
+        }
+        @keyframes float-up {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
         }
 
         .card-section {
@@ -60,7 +91,7 @@
             overflow: hidden;
         }
 
-        /* === BULLETPROOF SOLID SILVER CARD === */
+        /* === MOBILE-PROOF SOLID SILVER CARD === */
         .info-card {
             position: absolute;
             width: 85vw;
@@ -69,23 +100,29 @@
             max-height: 600px;
             border-radius: 20px;
             
-            /* 1. FORCE OPAQUE BACKGROUND COLOR */
-            background-color: #e0e0e0 !important;
+            /* 1. Solid Base */
+            background-color: #dcdcdc; 
             
-            /* 2. SOLID GRADIENT (No Transparent Colors) */
+            /* 2. HIGH CONTRAST CHROME GRADIENT */
             background: linear-gradient(
                 135deg, 
-                #ffffff 0%, 
-                #d6d6d6 50%, 
-                #a1a1a1 100%
+                #ffffff 0%,    
+                #d0d0d0 25%,   
+                #f0f0f0 50%,   
+                #909090 75%,   
+                #505050 100%   
             );
             
-            /* 3. SHARP BORDERS */
-            border: 2px solid #ffffff;
-            border-bottom: 4px solid #888888;
+            /* 3. 3D Beveled Edges */
+            border-top: 2px solid rgba(255, 255, 255, 0.9);
+            border-left: 1px solid rgba(255, 255, 255, 0.5);
+            border-right: 1px solid rgba(0, 0, 0, 0.5);
+            border-bottom: 3px solid rgba(0, 0, 0, 0.8);
             
-            /* 4. DEEP SHADOW (Hides content behind) */
-            box-shadow: 0 40px 80px #000000;
+            /* 4. Deep Shadow */
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,1), 
+                inset 0 0 20px rgba(255,255,255,0.4); 
             
             display: flex;
             flex-direction: column;
@@ -94,14 +131,13 @@
             text-align: center;
             padding: 2rem;
             
-            /* 5. GPU FIXES */
             transform: translate3d(0,0,0);
             backface-visibility: hidden; 
-            -webkit-backface-visibility: hidden; /* iOS Fix */
-            z-index: 1; /* Force stacking context */
+            will-change: transform, opacity;
+            z-index: 10;
         }
 
-        /* FAILSAFE BLOCKER: A white sheet behind the card content */
+        /* PSEUDO-ELEMENT BLOCKER (Prevents Transparency) */
         .info-card::before {
             content: "";
             position: absolute;
@@ -116,28 +152,30 @@
             font-family: 'Great Vibes', cursive;
             font-size: 1.8rem;
             margin-bottom: 0.5rem;
-            text-shadow: none; /* Removed complex shadow for speed */
+            text-shadow: 0 1px 0 rgba(255,255,255,0.6);
         }
 
         .info-card h3 {
-            color: #000000;
+            color: #0d0d0d; 
             font-family: 'Cinzel', serif;
             font-weight: 900;
             margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 0px 1px 0px rgba(255,255,255,1), 0px -1px 0px rgba(0,0,0,0.1);
         }
         
         .info-card p {
-            color: #222222;
-            font-weight: 700;
+            color: #333333;
+            font-weight: 600;
             line-height: 1.6;
+            text-shadow: 0 1px 0 rgba(255,255,255,0.4);
         }
 
         .float-icon { 
             font-size: 80px;
             margin-bottom: 20px;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));
             animation: float 4s ease-in-out infinite;
             will-change: transform; 
         }
@@ -146,6 +184,7 @@
             50% { transform: translate3d(0, -10px, 0); } 
         }
 
+        /* FINAL SCREEN */
         .heartbeat-circle {
             position: absolute;
             border: 2px solid rgba(255, 255, 255, 0.1);
@@ -205,6 +244,8 @@
 
     <section class="h-screen w-full relative overflow-hidden flex flex-col items-center justify-center bg-black" id="hero-section">
         <div class="aurora-bg"></div>
+        <div id="fireflies-container"></div>
+        
         <div class="z-10 text-center px-4" id="hero-content">
             <h2 class="text-xs md:text-sm uppercase tracking-[0.5em] mb-6 text-white/60">The Eternal Union of</h2>
             <h1 class="text-5xl md:text-9xl font-black tracking-tighter text-white leading-tight">
@@ -220,15 +261,19 @@
 
     <section class="h-screen w-full relative bg-black flex items-center justify-center overflow-hidden" id="struggle-pin">
         <div class="z-10 text-center max-w-4xl px-6 relative h-full flex flex-col justify-center">
+            
             <div class="struggle-text absolute inset-0 flex items-center justify-center opacity-0 translate-y-10">
-                <h2 class="text-4xl md:text-7xl font-bold text-gray-500 tracking-tight">7 Days.</h2>
+                <h2 class="text-4xl md:text-7xl font-bold text-gray-500 tracking-tight">7 Days</h2>
             </div>
+            
             <div class="struggle-text absolute inset-0 flex items-center justify-center opacity-0 translate-y-10">
-                <h2 class="text-4xl md:text-7xl font-bold text-gray-400 tracking-tight">7 Promises.</h2>
+                <h2 class="text-4xl md:text-7xl font-bold text-gray-400 tracking-tight">7 Promises</h2>
             </div>
+            
             <div class="struggle-text absolute inset-0 flex items-center justify-center opacity-0 translate-y-10">
-                <h2 class="text-5xl md:text-8xl font-bold gold-text tracking-tighter">One Love Story.</h2>
+                <h2 class="text-5xl md:text-8xl font-bold text-white tracking-tighter pb-4">One Love Story</h2>
             </div>
+        
         </div>
     </section>
 
@@ -316,7 +361,20 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <script>
-        // === 1. FORCE LOAD ===
+        // === 1. GENERATE STARDUST FIREFLIES ===
+        const firefliesContainer = document.getElementById('fireflies-container');
+        if (firefliesContainer) {
+            for (let i = 0; i < 30; i++) {
+                let div = document.createElement('div');
+                div.className = 'firefly';
+                div.style.left = Math.random() * 100 + 'vw';
+                div.style.animationDelay = Math.random() * 10 + 's';
+                div.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                firefliesContainer.appendChild(div);
+            }
+        }
+
+        // === 2. FORCE LOAD (SAFETY NET) ===
         function removeLoader() {
             const loader = document.getElementById('loader');
             if(loader && loader.style.display !== 'none') {
@@ -330,14 +388,14 @@
             }
         }
         window.addEventListener('load', removeLoader);
-        setTimeout(removeLoader, 3000);
+        setTimeout(removeLoader, 2500); // Reduce wait to 2.5s for faster mobile load
 
-        // === 2. SMOOTH SCROLL ===
+        // === 3. SMOOTH SCROLL ===
         const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true, touchMultiplier: 2 });
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // === 3. ANIMATIONS ===
+        // === 4. ANIMATIONS ===
         function initAnimations() {
             if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
@@ -375,7 +433,7 @@
             gsap.to(".reveal-final", { y: 0, opacity: 1, scale: 1, duration: 1, stagger: 0.3, scrollTrigger: { trigger: "#proposal-container", start: "top 70%" }});
         }
 
-        // === 4. INTERACTION ===
+        // === 5. INTERACTION ===
         function marryMe() {
             const duration = 5000;
             const animationEnd = Date.now() + duration;
