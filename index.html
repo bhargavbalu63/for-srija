@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bhargav & Srija | The Silver Story</title>
+    <title>Bhargav & Srija | The Vibrant Story</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
     <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,900;1,900&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -28,44 +30,62 @@
         .lenis.lenis-smooth { scroll-behavior: auto !important; }
         .lenis.lenis-stopped { overflow: hidden; }
 
-        .font-cinzel { font-family: 'Cinzel', serif; }
+        /* FONTS */
+        .font-playfair { font-family: 'Playfair Display', serif; }
         .font-vibes { font-family: 'Great Vibes', cursive; }
+        .font-cinzel { font-family: 'Cinzel', serif; }
+
+        /* === NEW: VIBRANT TITLE GRADIENTS === */
         
-        /* === 1. UPDATED: PLATINUM & (Bright & Shiny) === */
-        .platinum-text {
-            color: #ffffff;
-            background: linear-gradient(to right, #ffffff 0%, #e0e0e0 40%, #ffffff 50%, #e0e0e0 60%, #ffffff 100%);
-            background-size: 200% auto;
+        /* 1. The Names (Sunset Diamond) */
+        .vibrant-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            /* Vibrant Gradient: Gold -> Pink -> Purple */
+            background: linear-gradient(to right, #FFD700, #ff0055, #9d00ff, #FFD700);
+            background-size: 300% auto;
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            /* High Glow */
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
-            animation: shine 3s linear infinite;
+            /* Strong Glow */
+            filter: drop-shadow(0 0 25px rgba(255, 0, 85, 0.4));
+            animation: shine-move 4s linear infinite;
         }
 
-        /* === 2. UPDATED: VALENTINE RED (Vibrant & Romantic) === */
-        .valentine-text {
-            font-family: 'Cinzel', serif;
-            background: linear-gradient(to bottom, #ff3366, #ff0055);
+        /* 2. The Ampersand (Holographic Silver) */
+        .holo-amp {
+            font-family: 'Great Vibes', cursive;
+            background: linear-gradient(135deg, #fff 0%, #a6a6a6 50%, #fff 100%);
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            /* Red Neon Glow */
-            filter: drop-shadow(0 0 15px rgba(255, 0, 85, 0.5));
+            filter: drop-shadow(0 0 10px white);
+            animation: pulse-shine 2s infinite alternate;
         }
 
-        @keyframes shine {
-            to { background-position: 200% center; }
+        /* 3. Subtitle (Rose Gold) */
+        .rose-gold-sub {
+            color: #E0BFB8;
+            text-shadow: 0 0 10px rgba(224, 191, 184, 0.3);
+            letter-spacing: 0.4em;
         }
 
+        @keyframes shine-move {
+            to { background-position: 300% center; }
+        }
+        @keyframes pulse-shine {
+            from { opacity: 0.8; transform: scale(1); }
+            to { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* === BACKGROUND & PARTICLES === */
         .aurora-bg {
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at center, #2a2a2a 0%, #000000 90%);
+            background: radial-gradient(circle at center, #1a0b14 0%, #000000 90%);
             opacity: 1;
             z-index: 0;
-            animation: breathe 10s infinite alternate ease-in-out;
+            animation: breathe 8s infinite alternate ease-in-out;
         }
         @keyframes breathe {
             0% { transform: scale(1); opacity: 0.8; }
@@ -74,10 +94,10 @@
 
         .firefly {
             position: absolute;
-            width: 3px; height: 3px;
+            width: 4px; height: 4px;
             background: #ffffff;
             border-radius: 50%;
-            box-shadow: 0 0 8px #ffffff, 0 0 15px #a1a1a1;
+            box-shadow: 0 0 10px #ff0055, 0 0 20px #FFD700; /* Pink & Gold Glow */
             animation: float-up 10s infinite linear;
             opacity: 0;
             z-index: 1;
@@ -108,6 +128,8 @@
             max-width: 400px;
             max-height: 600px;
             border-radius: 20px;
+            
+            /* Solid Base */
             background-color: #dcdcdc; 
             
             /* High Contrast Chrome Gradient */
@@ -188,6 +210,7 @@
             50% { transform: translate3d(0, -10px, 0); } 
         }
 
+        /* FINAL SCREEN */
         .heartbeat-circle {
             position: absolute;
             border: 2px solid rgba(255, 255, 255, 0.1);
@@ -223,6 +246,15 @@
         }
         @keyframes spin-light { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
+        .valentine-text {
+            font-family: 'Cinzel', serif;
+            background: linear-gradient(to bottom, #ff3366, #ff0055);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(255, 0, 85, 0.5));
+        }
+
         .heart-btn {
             background: linear-gradient(135deg, #e11d48, #be123c);
             box-shadow: 0 0 20px rgba(225, 29, 72, 0.6);
@@ -250,13 +282,15 @@
         <div id="fireflies-container"></div>
         
         <div class="z-10 text-center px-4" id="hero-content">
-            <h2 class="text-xs md:text-sm uppercase tracking-[0.5em] mb-6 text-white/60">The Eternal Union of</h2>
-            <h1 class="text-5xl md:text-9xl font-black tracking-tighter text-white leading-tight">
-                BHARGAV<br>
-                <span class="platinum-text font-vibes text-7xl md:text-9xl block my-4">&</span>
-                SRIJA
+            <h2 class="text-xs md:text-sm uppercase rose-gold-sub mb-6">The Eternal Union of</h2>
+            
+            <h1 class="text-5xl md:text-9xl tracking-tighter leading-tight">
+                <span class="vibrant-name">BHARGAV</span><br>
+                <span class="holo-amp text-7xl md:text-9xl block my-4">&</span>
+                <span class="vibrant-name">SRIJA</span>
             </h1>
         </div>
+        
         <div class="absolute bottom-12 flex flex-col items-center gap-2 opacity-70 animate-bounce">
             <p class="text-[10px] tracking-[0.3em] uppercase text-white">Begin Journey</p>
         </div>
@@ -365,7 +399,7 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <script>
-        // === 1. GENERATE STARDUST FIREFLIES ===
+        // === 1. FIREFLIES ===
         const firefliesContainer = document.getElementById('fireflies-container');
         if (firefliesContainer) {
             for (let i = 0; i < 30; i++) {
@@ -378,7 +412,7 @@
             }
         }
 
-        // === 2. FORCE LOAD (SAFETY NET) ===
+        // === 2. FORCE LOAD ===
         function removeLoader() {
             const loader = document.getElementById('loader');
             if(loader && loader.style.display !== 'none') {
